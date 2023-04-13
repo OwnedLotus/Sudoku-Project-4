@@ -27,7 +27,7 @@ class SudokuGenerator:
         self.removed_cells = removed_cells
         
         #TODO replace with proper implementation if not provided by helper method
-        self.board = [[]]
+        self.board = Board(row_length,row_length,1920,1080,'easy')
         self.board_length = math.sqrt(row_length)
 
     '''
@@ -116,8 +116,15 @@ class SudokuGenerator:
 
 	Return: boolean
     '''
-    def is_valid(self, row, col, num):
-        pass
+    def is_valid(self, row, col, num) -> bool:
+        row_valid = self.valid_in_row(row, num)
+        col_valid = self.valid_in_col(col, num)
+        box_valid = self.valid_in_box(row, col, num)
+        
+        if row_valid and col_valid and box_valid:
+            return True
+        
+        return False
 
     '''
     Fills the specified 3x3 box with values
@@ -230,3 +237,40 @@ def generate_sudoku(size, removed):
     sudoku.remove_cells()
     board = sudoku.get_board()
     return board
+
+class Board:
+    def __init__(self, width, height, screen, difficulty):
+        pass
+    def draw(self):
+        pass
+    def select(self, row, col):
+        pass
+    def click(self, x, y):
+        pass
+    def clear(self):
+        pass
+    def sketch(self, value):
+        pass
+    def place_number(self, value):
+        pass
+    def reset_to_original(self):
+        pass
+    def is_full(self):
+        pass
+    def update_board(self):
+        pass
+    def find_empty(self):
+        pass
+    def check_board(self):
+        pass
+
+class Cell:
+    
+    def __init__(self, value, row, col, screen) -> None:
+        pass
+    def set_cell_value(self, value):
+        pass
+    def set_sketched_value(self, value):
+        pass
+    def draw(self):
+        pass
