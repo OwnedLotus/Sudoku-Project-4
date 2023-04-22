@@ -1,7 +1,7 @@
 import sys
 import pygame
 
-#1080p screen size -> slightly smaller for even divisibility
+#changed for even divisibility of screen with cells
 SCREEN_WIDTH = 900
 SCREEN_HEIGHT = 900
 RED = (255,0,0)
