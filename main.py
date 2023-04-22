@@ -2,8 +2,8 @@ import sys
 import pygame
 
 #1080p screen size -> slightly smaller for even divisibility
-SCREEN_WIDTH = 1800
-SCREEN_HEIGHT = 1080
+SCREEN_WIDTH = 900
+SCREEN_HEIGHT = 900
 RED = (255,0,0)
 GREEN = (0,255,0)
 BLUE = (0,0,255)
@@ -19,7 +19,7 @@ def draw_grid():
           pass
 
 screen.fill(WHITE)
-
+draw_grid()
 
 while True:
      for event in pygame.event.get():
