@@ -79,7 +79,7 @@ class SudokuGenerator:
 	
 	Return: boolean
     '''
-    def valid_in_col(self, col, num) -> bool:
+    def valid_in_col(self, col, num) -> bool: 
         for row in self.board:
             if row[col] == num:
                 return False
@@ -100,7 +100,7 @@ class SudokuGenerator:
     '''
     def valid_in_box(self, row_start, col_start, num) -> bool:
         for i in range(row_start, row_start + 2):
-            for j in range(col_start, col_start +2):
+            for j in range(col_start, col_start + 2):
                 if self.board[i][j] == num:
                     return False
                 
@@ -240,7 +240,11 @@ def generate_sudoku(size, removed):
 
 class Board:
     def __init__(self, width, height, screen, difficulty):
-        pass
+        self.width = width
+        self.height = height
+        self.screen = screen
+        self.difficulty = difficulty
+        
     def draw(self):
         pass
     def select(self, row, col):
