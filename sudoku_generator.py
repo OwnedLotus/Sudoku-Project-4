@@ -269,16 +269,20 @@ class Board:
         pass
 
 class Cell:
-    
+    #initializes value with parameters that are passed in
     def __init__(self, value, row, col, screen) -> None:
         self.value = value
         self.row = row
         self.col = col
         self.screen = screen
-        
+
+    #sets the value of the cell with the parameter passed in
     def set_cell_value(self, value):
-        pass
+        self.value = value
+        
+    #sets the value of the cells sketched value
     def set_sketched_value(self, value):
-        pass
+        self.sketched_value = value
+        
     def draw(self):
         pass
