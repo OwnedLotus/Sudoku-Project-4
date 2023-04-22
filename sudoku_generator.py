@@ -239,12 +239,12 @@ def generate_sudoku(size, removed):
     return board
 
 class Board:
-    def __init__(self, width, height, screen, difficulty):
+    def __init__(self, width, height, screen, difficulty) -> None:
         self.width = width
         self.height = height
         self.screen = screen
         self.difficulty = difficulty
-        
+
     def draw(self):
         pass
     def select(self, row, col):
