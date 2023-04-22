@@ -29,6 +29,8 @@ class SudokuGenerator:
         #TODO replace with proper implementation if not provided by helper method
         self.board = Board(row_length,row_length,1920,1080,'easy')
         self.board_length = math.sqrt(row_length)
+        
+        return None
 
     '''
 	Returns a 2D python list of numbers which represents the board
@@ -47,7 +49,7 @@ class SudokuGenerator:
 	Return: None
     '''
     def print_board(self) -> None:
-        for row in board:
+        for row in self.board:
             for num in row:
                 print(num, end=' ')
             print()
