@@ -33,7 +33,7 @@ def main_menu(screen) -> int:
      
      #TODO replace for proper menu implementation
      # difficulty = input('Please enter difficulty as 0,1,2 ')
-     return difficulty
+     # return difficulty
 
 def game_in_progress(screen):
      #main_menu will display main menu and have user choose difficulty
