@@ -20,7 +20,7 @@ def start_game() -> pygame.Surface:
 
 #Should end the game
 def game_over():
-     pass
+     sys.exit(0)
 
 def game_in_progress(screen):
      screen.fill(WHITE)
@@ -29,11 +29,13 @@ def game_in_progress(screen):
      while True:
           for event in pygame.event.get():
                if event.type == pygame.QUIT:
-                    sys.exit(0)
+                    game_over()
+
 
 def main():
-     start_game()
-     game_in_progress()
+     #init pygame and returns pygame screen, and starts the game loop in game_in_progress()
+     screen = start_game()
+     game_in_progress(screen)
 
 
 
@@ -41,19 +43,4 @@ def main():
 
 if __name__ == "__main__":
      main()
-
-
-# def draw_grid():
-#      for i in range(1, 9):
-#           pass
-
-# screen.fill(WHITE)
-# draw_grid()
-
-# while True:
-#      for event in pygame.event.get():
-#           if event.type == pygame.QUIT:
-#                pygame.quit()
-#                sys.exit()
-               
                
