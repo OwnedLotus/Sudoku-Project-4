@@ -1,5 +1,5 @@
 import pygame, sys
-
+import sudoku_generator as sg
 #changed for even divisibility of screen with cells
 SCREEN_WIDTH = 900
 SCREEN_HEIGHT = 900
@@ -18,13 +18,18 @@ def start_game() -> pygame.Surface:
      pygame.display.set_caption("Sudoku")
      return screen
 
+#Should end the game
 def game_over():
      pass
 
 def game_in_progress(screen):
      screen.fill(WHITE)
+     _ = sg.SudokuGenerator #init returns None so wildcard "_" name
+     
      while True:
-          pass
+          for event in pygame.event.get():
+               if event.type == pygame.QUIT:
+                    sys.exit(0)
 
 def main():
      start_game()
