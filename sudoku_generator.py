@@ -32,9 +32,6 @@ class SudokuGenerator:
     def __init__(self, row_length, removed_cells) -> None:
         self.row_length = row_length
         self.removed_cells = removed_cells
-        
-        #TODO replace with proper implementation if not provided by helper method
-        self.board = Board(row_length,row_length,1920,1080,'easy')
         self.board_length = math.sqrt(row_length)
         
         return None

@@ -21,25 +21,28 @@ def start_game() -> pygame.Surface:
 #Should end the game
 def game_over():
      sys.exit(0)
+     
+def main_menu() -> int:
+     #TODO replace for proper menu implementation
+     difficulty = input('Please enter difficulty as 0,1,2 ')
+     return difficulty
 
 def game_in_progress(screen):
      screen.fill(WHITE)
+     #main_menu will display main menu and have user choose difficulty
+     difficulty_selection = main_menu() 
      _ = sg.SudokuGenerator #init returns None so wildcard "_" name
+     sg.Board(SCREEN_WIDTH,SCREEN_HEIGHT,screen, difficulty_selection)
      
      while True:
           for event in pygame.event.get():
                if event.type == pygame.QUIT:
                     game_over()
 
-
 def main():
      #init pygame and returns pygame screen, and starts the game loop in game_in_progress()
      screen = start_game()
      game_in_progress(screen)
-
-
-
-
 
 if __name__ == "__main__":
      main()
