@@ -1,5 +1,12 @@
 import math,random
 
+
+#CONSTANTS difficulty as tuple with the name
+#of the difficulty and the number of empty cells
+DIFFICULTY_EASY = ('easy', 30)
+DIFFICULTY_MEDIUM = ('medium', 40)
+DIFFICULTY_HARD = ('hard', 50)
+
 """
 This was adapted from a GeeksforGeeks article "Program for Sudoku Generator" by Aarti_Rathi and Ankur Trisal
 https://www.geeksforgeeks.org/program-sudoku-generator/
