@@ -276,7 +276,14 @@ class Board:
         pass
 
     def click(self, x, y):
-        pass
+        cols = int(self.width)
+        rows = int(self.height)
+        col = int(x // 3)
+        row = int(y // 3)
+        if col >= 1 and col > cols and row >= 1 and row > rows:
+            return (row, col)
+        else:
+            return None
 
     def clear(self):
         pass
@@ -291,9 +298,11 @@ class Board:
         pass
 
     def is_full(self):
-        for i in range(9):
-            for j in range(9):
-                if self[i][j] == 0:
+        cols = int(self.width)
+        rows = int(self.height)
+        for i in range(cols):
+            for j in range(rows):
+                if [i][j] == 0:
                     return False
         return True
 
@@ -301,9 +310,11 @@ class Board:
         pass
     
     def find_empty(self):
-        for i in range(9):
-            for j in range(9):
-                if self[i][j] == 0:
+        cols = int(self.width)
+        rows = int(self.height)
+        for i in range(cols):
+            for j in range(rows):
+                if [i][j] == 0:
                     return (i, j)
 
     def check_board(self):
