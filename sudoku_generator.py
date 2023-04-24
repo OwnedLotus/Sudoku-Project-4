@@ -271,27 +271,44 @@ class Board:
 
     def draw(self):
         pass
+
     def select(self, row, col):
         pass
+
     def click(self, x, y):
         pass
+
     def clear(self):
         pass
+
     def sketch(self, value):
         pass
+
     def place_number(self, value):
-        pass
+        self.value = value
+
     def reset_to_original(self):
         pass
+
     def is_full(self):
-        pass
+        for i in range(9):
+            for j in range(9):
+                if self[i][j] == 0:
+                    return False
+        return True
+
     def update_board(self):
         pass
+    
     def find_empty(self):
-        pass
+        for i in range(9):
+            for j in range(9):
+                if self[i][j] == 0:
+                    return (i, j)
+
     def check_board(self):
         pass
-
+    
 class Cell:
     #initializes value with parameters that are passed in
     def __init__(self, value, row, col, screen) -> None:
