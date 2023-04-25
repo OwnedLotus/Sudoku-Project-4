@@ -282,7 +282,7 @@ class Board:
                              ((self.width - (self.width // 20)), (self.width // 20) + (self.width // 10) * i), 2)
 
     def select(self, row, col):
-        pass
+        self.selectedcell = (row, col)
 
     def click(self, x, y):
         cols = int(self.width)
@@ -295,13 +295,26 @@ class Board:
             return None
 
     def clear(self):
-        pass
+        if self.selectedcell != None:
+            row, col = self.selectedcell
+            cols = int(self.width)
+            rows = int(self.height)
+            for i in range(cols):
+                for j in range(rows):
+                    if [row][col] != 0:
+                        [row][col] = 0
 
     def sketch(self, value):
         pass
 
     def place_number(self, value):
-        self.value = value
+        row, col = self.selectedcell
+        cols = int(self.width)
+        rows = int(self.height)
+        for i in range(cols):
+            for j in range(rows):
+                if i == row and j == col:
+                    [row][col] = value
 
     def reset_to_original(self):
         pass
