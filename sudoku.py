@@ -93,7 +93,7 @@ def game_in_progress(screen):
      #main_menu will display main menu and have user choose difficulty
      difficulty_selection = main_menu(screen) 
      _ = sg.SudokuGenerator #init returns None so wildcard "_" name
-     sg.Board(SCREEN_WIDTH,SCREEN_HEIGHT,screen, difficulty_selection)
+     sg.generate_sudoku(9, difficulty_selection)
 
      clock = pygame.time.Clock()
      
