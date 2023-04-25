@@ -106,6 +106,10 @@ class SudokuGenerator:
 	Return: boolean
     '''
     def valid_in_box(self, row_start, col_start, num) -> bool:
+	if row_start >= 7:
+            row_start = 6
+        if col_start >= 7:
+            col_start = 6
         for i in range(row_start, row_start + 2):
             for j in range(col_start, col_start + 2):
                 if self.board[i][j] == num:
