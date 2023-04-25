@@ -33,7 +33,7 @@ class SudokuGenerator:
     def __init__(self, row_length, removed_cells) -> None:
         self.row_length = row_length
         self.removed_cells = removed_cells
-        self.board_length = math.sqrt(row_length)
+        self.box_length = int(math.sqrt(row_length))
         self.board = [[0 for i in list(range(row_length))] for j in list(range(row_length))]
         return None
 
