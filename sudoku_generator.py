@@ -270,7 +270,16 @@ class Board:
         self.difficulty = difficulty
 
     def draw(self):
-        pass
+        for i in range(0, 10):
+            if i % 3 == 0:
+                pygame.draw.line(self.screen, (255, 255, 255), ((self.width // 20) + (self.width // 10) * i, (self.width // 20)),
+                                 ((self.width // 20) + (self.width // 10) * i, (self.width - (self.width // 20))), 4)
+                pygame.draw.line(self.screen, (255, 255, 255), ((self.width // 20), (self.width // 20) + (self.width // 10) * i),
+                                 ((self.width - (self.width // 20)), (self.width // 20) + (self.width // 10) * i), 4)
+            pygame.draw.line(self.screen, (255, 255, 255), ((self.width // 20) + (self.width // 10) * i, (self.width // 20)),
+                             ((self.width // 20) + (self.width // 10) * i, (self.width - (self.width // 20))), 2)
+            pygame.draw.line(self.screen, (255, 255, 255), ((self.width // 20), (self.width // 20) + (self.width // 10) * i),
+                             ((self.width - (self.width // 20)), (self.width // 20) + (self.width // 10) * i), 2)
 
     def select(self, row, col):
         pass
