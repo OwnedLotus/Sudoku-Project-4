@@ -1,5 +1,6 @@
 import math,random
 
+import pygame
 
 #CONSTANTS difficulty as tuple with the name
 #of the difficulty and the number of empty cells
