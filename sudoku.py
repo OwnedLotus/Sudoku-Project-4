@@ -4,13 +4,6 @@ import sudoku_generator as sg
 SCREEN_WIDTH = 900
 SCREEN_HEIGHT = 900
 
-#CONSTANTS defining colors
-RED = pygame.Color(255,0,0)
-GREEN = pygame.Color(0,255,0)
-BLUE = pygame.Color(0,0,255)
-BLACK = pygame.Color(255,255,255)
-WHITE = pygame.Color(0,0,0)
-
 #Starts the game, return the screen, is type Surface
 def start_game() -> pygame.Surface:
      pygame.init()
@@ -91,6 +84,7 @@ def main_menu(screen) -> int:
                     difficulty = 1
                 elif button_hard.collidepoint(mouse_pos):
                     difficulty = 2
+                print(difficulty)
 
     # Return the difficulty value
     return difficulty
