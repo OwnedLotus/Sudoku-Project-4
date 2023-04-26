@@ -36,10 +36,16 @@ def insert_num(screen, pos, array):
     i, j = pos[0], pos[1]
     font = pygame.font.SysFont('Arial', 60)
 
+    center = (int(math.floor((i + 45) / 90)), int(math.floor((j + 45) / 90)))
+
+    #highlight cell
+    red_box = pygame.Rect(center[0] - 45, center[1] - 45, 90, 90 )
+    pygame.draw.rect(screen, RED, red_box)
+    pygame.display.update()
+
+    #Loop that looks for number click
     while True:
         for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                return
             if event.type == pygame.KEYDOWN:
                 if array[i][j] != 0:
                     return
@@ -134,7 +140,7 @@ def main_menu(screen) -> int:
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 mouse_pos = event.pos
                 if button_easy.collidepoint(mouse_pos):
-                    difficulty = 30
+                    difficulty = 1
                 elif button_medium.collidepoint(mouse_pos):
                     difficulty = 40
                 elif button_hard.collidepoint(mouse_pos):
@@ -158,6 +164,7 @@ def game_in_progress(screen):
     pygame.display.update()
     clock = pygame.time.Clock()
 
+    #Observing click events in the game
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -165,6 +172,7 @@ def game_in_progress(screen):
             elif event.type == pygame.MOUSEBUTTONUP and event.button == 1:
                 mouse_pos = event.pos
                 cell = cell_position(mouse_pos)
+                
                 insert_num(screen, cell, arrayboard)
 
         clock.tick(60)
