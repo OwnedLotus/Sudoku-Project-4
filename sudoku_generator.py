@@ -106,7 +106,7 @@ class SudokuGenerator:
 	Return: boolean
     '''
     def valid_in_box(self, row_start, col_start, num) -> bool:
-	if row_start >= 7:
+        if row_start >= 7:
             row_start = 6
         if col_start >= 7:
             col_start = 6
@@ -116,7 +116,7 @@ class SudokuGenerator:
                     return False
                 
         return True
-    
+
     '''
     Determines if it is valid to enter num at (row, col) in the board
     This is done by checking that num is unused in the appropriate, row, column, and box
