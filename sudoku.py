@@ -13,6 +13,20 @@ BLUE = pygame.Color(0, 0, 255)
 WHITE = pygame.Color(255, 255, 255)
 BLACK = pygame.Color(0, 0, 0)
 
+def end_screen(array, screen):
+    if sg.is_valid_sudoku(array):
+        screen.fill(WHITE)
+        font = pygame.font.SysFont("Arial", 100, True, False)
+        text = font.render("You won!", True, BLACK)
+        screen.blit(text, (230, 250))
+        pygame.display.update()
+    else:
+        screen.fill(BLACK)
+        font = pygame.font.SysFont("Arial", 100, True, False)
+        text = font.render("You lost!", True, WHITE)
+        screen.blit(text, (230, 250))
+        pygame.display.update()
+
 def cell_position(pos_tuple):
     i = int(math.floor((pos_tuple[0] - 45) / 90))
     j = int(math.floor((pos_tuple[1] - 45) / 90))
@@ -39,6 +53,8 @@ def insert_num(screen, pos, array):
                     pygame.display.update()
                     return
                 return
+        if sg.is_full(array):
+            end_screen(array, screen)
 
 
 
