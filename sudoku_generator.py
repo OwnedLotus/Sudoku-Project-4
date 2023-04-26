@@ -399,3 +399,11 @@ class Cell:
             font = pygame.font.SysFont("Arial", 60)
             text = font.render(str(self.value), True, (255, 255, 255))
             self.screen.blit(text, (75 + (90 * self.col), 60 + (90 * self.row)))
+	
+def draw(array, screen, i, j):
+    if array[i][j] == 0:
+        return None
+    else:
+        font = pygame.font.SysFont("Arial", 60)
+        text = font.render(str(array[i][j]), True, (0, 0, 0))
+        screen.blit(text, (75 + (90 * i), 60 + (90 * j)))
