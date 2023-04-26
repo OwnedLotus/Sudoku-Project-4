@@ -422,3 +422,34 @@ def draw(array, screen, i, j):
         font = pygame.font.SysFont("Arial", 60)
         text = font.render(str(array[i][j]), True, (0, 0, 0))
         screen.blit(text, (75 + (90 * i), 60 + (90 * j)))
+
+def is_full(array):
+    for i in range(len(array)):
+        for j in range(len(array[0])):
+            if array[i][j] == 0:
+                return False
+    return True
+
+def is_valid_sudoku(array):
+    # Check rows
+    for row in array:
+        if len(set(row)) != 9:
+            return False
+
+    # Check columns
+    for col in zip(*array):
+        if len(set(col)) != 9:
+            return False
+
+    # Check 3x3 boxes
+    boxnums = set()
+    for row in range(0, len(array), 3):
+        for col in range(0, len(array[0]), 3):
+            for i in range(row, row + 3):
+                for j in range(col, col + 3):
+                    boxnums.add(array[i][j])
+            if len(boxnums) != 9:
+                return False
+            boxnums.clear()
+
+    return True
