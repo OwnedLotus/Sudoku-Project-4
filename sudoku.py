@@ -1,23 +1,62 @@
 import pygame, sys
 import sudoku_generator as sg
-#changed for even divisibility of screen with cells
+import math
+
+# changed for even divisibility of screen with cells
 SCREEN_WIDTH = 900
 SCREEN_HEIGHT = 900
 
-#Starts the game, return the screen, is type Surface
-def start_game() -> pygame.Surface:
-     pygame.init()
-     pygame.display.set_caption("Sudoku")
-     screen = pygame.display.set_mode((SCREEN_WIDTH,SCREEN_HEIGHT))
-     return screen
+# CONSTANTS defining colors
+RED = pygame.Color(255, 0, 0)
+GREEN = pygame.Color(0, 255, 0)
+BLUE = pygame.Color(0, 0, 255)
+WHITE = pygame.Color(255, 255, 255)
+BLACK = pygame.Color(0, 0, 0)
 
-#Should end the game
+def cell_position(pos_tuple):
+    i = int(math.floor((pos_tuple[0] - 45) / 90))
+    j = int(math.floor((pos_tuple[1] - 45) / 90))
+    return (i, j)
+
+def insert_num(screen, pos, array):
+    i, j = pos[0], pos[1]
+    font = pygame.font.SysFont('Arial', 60)
+
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                return
+            if event.type == pygame.KEYDOWN:
+                if array[i][j] != 0:
+                    return
+                if event.key == 48:
+                    pygame.draw.rect(screen, WHITE, ((pos[0] * 90) + 55, (pos[1] * 90) + 55, 30, 30))
+                    pygame.display.update()
+                if 1 <= (event.key - 48) < 10:
+                    pygame.draw.rect(screen, WHITE, ((pos[0] * 90) + 55, (pos[1] * 90) + 55, 40, 40))
+                    value = font.render(str(event.key - 48), True, (75, 0, 130))
+                    screen.blit(value, ((pos[0]*90) + 45 + 30, (pos[1]*90) + 45 + 15))
+                    pygame.display.update()
+                    return
+                return
+
+
+
+# Starts the game, return the screen, is type Surface
+def start_game() -> pygame.Surface:
+    pygame.init()
+    pygame.display.set_caption("Sudoku")
+    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    return screen
+
+
+# Should end the game
 def game_over():
-     sys.exit(0)
-     
-#Main menu, allows user to choose difficulty and returns it as 'difficulty'
+    sys.exit(0)
+
+
+# Main menu, allows user to choose difficulty and returns it as 'difficulty'
 def main_menu(screen) -> int:
-    
     # Define colors
     WHITE = (255, 255, 255)
     ORANGE = (255, 165, 0)
@@ -31,13 +70,13 @@ def main_menu(screen) -> int:
     # Draw the "Welcome to Sudoku" text
     font = pygame.font.Font(None, 64)
     text = font.render("Welcome to Sudoku", True, (0, 0, 0))
-    text_rect = text.get_rect(center=(WINDOW_SIZE[0]/2, 50))
+    text_rect = text.get_rect(center=(WINDOW_SIZE[0] / 2, 50))
     screen.blit(text, text_rect)
 
     # Draw the "Select Game Mode" text
     font = pygame.font.Font(None, 48)
     text_mode = font.render("Select Game Mode:", True, (0, 0, 0))
-    text_mode_rect = text_mode.get_rect(center=(WINDOW_SIZE[0]/2, 650))
+    text_mode_rect = text_mode.get_rect(center=(WINDOW_SIZE[0] / 2, 650))
     screen.blit(text_mode, text_mode_rect)
 
     # Draw the buttons
@@ -88,22 +127,38 @@ def main_menu(screen) -> int:
     # Return the difficulty value
     return difficulty
 
-def game_in_progress(screen):
-     #main_menu will display main menu and have user choose difficulty
-     difficulty_selection = main_menu(screen) 
-     _ = sg.SudokuGenerator #init returns None so wildcard "_" name
-     sg.generate_sudoku(9, difficulty_selection)
 
-     while True:
-          for event in pygame.event.get():
-               if event.type == pygame.QUIT:
-                    game_over()
+def game_in_progress(screen):
+    # main_menu will display main menu and have user choose difficulty
+    removed = main_menu(screen)
+    arrayboard = sg.generate_sudoku(9, removed) # init returns None so wildcard "_" name
+
+    board = sg.Board(SCREEN_WIDTH, SCREEN_HEIGHT, screen, removed)
+    screen.fill(WHITE)
+    board.draw()
+    for i in range(len(arrayboard)):
+        for j in range(len(arrayboard[0])):
+            sg.draw(arrayboard, screen, i, j)
+    pygame.display.update()
+    clock = pygame.time.Clock()
+
+    while True:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                game_over()
+            elif event.type == pygame.MOUSEBUTTONUP and event.button == 1:
+                mouse_pos = event.pos
+                cell = cell_position(mouse_pos)
+                insert_num(screen, cell, arrayboard)
+
+        clock.tick(60)
+
 
 def main():
-     #init pygame and returns pygame screen, and starts the game loop in game_in_progress()
-     screen = start_game()
-     game_in_progress(screen)
+    # init pygame and returns pygame screen, and starts the game loop in game_in_progress()
+    screen = start_game()
+    game_in_progress(screen)
+
 
 if __name__ == "__main__":
-     main()
-               
+    main()        
