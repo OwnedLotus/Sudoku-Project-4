@@ -79,11 +79,11 @@ def main_menu(screen) -> int:
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 mouse_pos = event.pos
                 if button_easy.collidepoint(mouse_pos):
-                    difficulty = 0
+                    difficulty = 30
                 elif button_medium.collidepoint(mouse_pos):
-                    difficulty = 1
+                    difficulty = 40
                 elif button_hard.collidepoint(mouse_pos):
-                    difficulty = 2
+                    difficulty = 50
 
     # Return the difficulty value
     return difficulty
