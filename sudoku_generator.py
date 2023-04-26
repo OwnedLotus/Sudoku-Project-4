@@ -273,6 +273,8 @@ class Board:
         self.height = height
         self.screen = screen
         self.difficulty = difficulty
+        self.selectedcell = None
+        self.board = [[0 for i in list(range(self.width))] for j in list(range(self.height))]
 
     def draw(self):
         for i in range(0, 10):
@@ -302,12 +304,8 @@ class Board:
     def clear(self):
         if self.selectedcell != None:
             row, col = self.selectedcell
-            cols = int(self.width)
-            rows = int(self.height)
-            for i in range(cols):
-                for j in range(rows):
-                    if [row][col] != 0:
-                        [row][col] = 0
+            if self.board[row][col] != 0:
+                self.board[row][col] = 0
 
     def sketch(self, value):
         pass
@@ -345,7 +343,38 @@ class Board:
                     return (i, j)
 
     def check_board(self):
-        pass
+        for row in range(self.height):
+            values = set()
+            for col in range(self.width):
+                value = self.board[row][col]
+                if value == 0:
+                    return False  
+                if value in values:
+                    return False  
+                values.add(value)
+        for col in range(self.width):
+            values = set()
+            for row in range(self.height):
+                value = self.board[row][col]
+                if value == 0:
+                    return False  
+                if value in values:
+                    return False  
+                values.add(value)
+        for lrow in range(0, self.width, 3):
+            for lcol in range(0, self.length, 3):
+                values = set()
+                for row in range(lrow, lrow + 3):
+                    for col in range(lcol, lcol + 3):
+                        value = self.board[row][col]
+                        if value not in values:
+                            if value == 0:
+                                return False
+                            values.add(value)
+                        else:
+                            return False 
+        return True
+
     
 class Cell:
     #initializes value with parameters that are passed in
