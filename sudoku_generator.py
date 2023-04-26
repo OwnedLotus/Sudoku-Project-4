@@ -275,6 +275,7 @@ class Board:
         self.difficulty = difficulty
         self.selectedcell = None
         self.board = [[0 for i in list(range(self.width))] for j in list(range(self.height))]
+        self.original_board = [[0 for i in range(self.width)] for j in range(self.height)]
 
     def draw(self):
         for i in range(0, 10):
@@ -320,7 +321,9 @@ class Board:
                     [row][col] = value
 
     def reset_to_original(self):
-        pass
+        for row in range(self.height):
+            for col in range(self.width):
+                self.board[row][col] = self.original_board[row][col]
 
     def is_full(self):
         cols = int(self.width)
@@ -332,7 +335,9 @@ class Board:
         return True
 
     def update_board(self):
-        pass
+        for row in range(self.height):
+            for col in range(self.width):
+                self.original_board[row][col] = self.board[row][col]
     
     def find_empty(self):
         cols = int(self.width)
