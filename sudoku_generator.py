@@ -288,13 +288,13 @@ class Board:
     def draw(self):
         for i in range(0, 10):
             if i % 3 == 0:
-                pygame.draw.line(self.screen, (255, 255, 255), ((self.width // 20) + (self.width // 10) * i, (self.width // 20)),
+                pygame.draw.line(self.screen, (0, 0, 0), ((self.width // 20) + (self.width // 10) * i, (self.width // 20)),
                                  ((self.width // 20) + (self.width // 10) * i, (self.width - (self.width // 20))), 4)
-                pygame.draw.line(self.screen, (255, 255, 255), ((self.width // 20), (self.width // 20) + (self.width // 10) * i),
+                pygame.draw.line(self.screen, (0, 0, 0), ((self.width // 20), (self.width // 20) + (self.width // 10) * i),
                                  ((self.width - (self.width // 20)), (self.width // 20) + (self.width // 10) * i), 4)
-            pygame.draw.line(self.screen, (255, 255, 255), ((self.width // 20) + (self.width // 10) * i, (self.width // 20)),
+            pygame.draw.line(self.screen, (0, 0, 0), ((self.width // 20) + (self.width // 10) * i, (self.width // 20)),
                              ((self.width // 20) + (self.width // 10) * i, (self.width - (self.width // 20))), 2)
-            pygame.draw.line(self.screen, (255, 255, 255), ((self.width // 20), (self.width // 20) + (self.width // 10) * i),
+            pygame.draw.line(self.screen, (0, 0, 0), ((self.width // 20), (self.width // 20) + (self.width // 10) * i),
                              ((self.width - (self.width // 20)), (self.width // 20) + (self.width // 10) * i), 2)
 
     def select(self, row, col):
