@@ -94,14 +94,10 @@ def game_in_progress(screen):
      _ = sg.SudokuGenerator #init returns None so wildcard "_" name
      sg.generate_sudoku(9, difficulty_selection)
 
-     clock = pygame.time.Clock()
-     
      while True:
           for event in pygame.event.get():
                if event.type == pygame.QUIT:
                     game_over()
-
-          clock.tick(60)
 
 def main():
      #init pygame and returns pygame screen, and starts the game loop in game_in_progress()
