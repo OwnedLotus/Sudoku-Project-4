@@ -308,8 +308,10 @@ class Board:
             if self.board[row][col] != 0:
                 self.board[row][col] = 0
 
-    def sketch(self, value):
-        pass
+    def sketch(self, row, col, value):
+    	num_font = pygame.font.SysFont('Arial', 35)
+    	numbers = num_font.render(str(value), 0, 'BLACK')
+    	self.screen.blit(numbers, ((col * 50) + 10, (row * 50) + 5))
 
     def place_number(self, value):
         row, col = self.selectedcell
