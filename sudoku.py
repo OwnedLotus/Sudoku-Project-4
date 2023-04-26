@@ -36,12 +36,12 @@ def insert_num(screen, pos, array):
     i, j = pos[0], pos[1]
     font = pygame.font.SysFont('Arial', 60)
 
-    center = (int(math.floor((i + 45) / 90)), int(math.floor((j + 45) / 90)))
+    #center = (int(math.floor((i + 45) / 90)), int(math.floor((j + 45) / 90)))
 
     #highlight cell
-    red_box = pygame.Rect(center[0] - 45, center[1] - 45, 90, 90 )
-    pygame.draw.rect(screen, RED, red_box)
-    pygame.display.update()
+    #red_box = pygame.Rect(center[0] - 45, center[1] - 45, 90, 90 )
+    #pygame.draw.rect(screen, RED, red_box)
+    #pygame.display.update()
 
     #Loop that looks for number click
     while True:
