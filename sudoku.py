@@ -217,10 +217,6 @@ def game_in_progress(screen):
     restart_text = FONT.render("Restart", True, WHITE)
     screen.blit(restart_text, (restart_button.x + (BUTTON_WIDTH - restart_text.get_width()) // 2, restart_button.y + (BUTTON_HEIGHT - restart_text.get_height()) // 2))
 
-# Draw the "reset" button
-    reset_button = pygame.draw.rect(screen, BLACK, (BUTTON_SPACING + BUTTON_WIDTH + BUTTON_SPACING + BUTTON_WIDTH + BUTTON_SPACING, screen.get_height() - BUTTON_HEIGHT - BUTTON_SPACING, BUTTON_WIDTH, BUTTON_HEIGHT))
-    reset_text = FONT.render("Reset", True, WHITE)
-    screen.blit(reset_text, (reset_button.x + (BUTTON_WIDTH - reset_text.get_width()) // 2, reset_button.y + (BUTTON_HEIGHT - reset_text.get_height()) // 2))
 
 # Update the display
     pygame.display.update()
