@@ -1,5 +1,4 @@
 import math,random
-
 import pygame
 
 #CONSTANTS difficulty as tuple with the name
@@ -30,12 +29,12 @@ class SudokuGenerator:
 	Return:
 	None
     '''
-    def __init__(self, row_length, removed_cells) -> None:
+    def __init__(self, row_length, removed_cells):
         self.row_length = row_length
         self.removed_cells = removed_cells
         self.box_length = int(math.sqrt(row_length))
         self.board = [[0 for i in list(range(row_length))] for j in list(range(row_length))]
-        return None
+        
 
     '''
 	Returns a 2D python list of numbers which represents the board
@@ -43,7 +42,7 @@ class SudokuGenerator:
 	Parameters: None
 	Return: list[list]
     '''
-    def get_board(self) -> list[list]:
+    def get_board(self):
         return self.board
 
     '''
@@ -53,7 +52,7 @@ class SudokuGenerator:
 	Parameters: None
 	Return: None
     '''
-    def print_board(self) -> None:
+    def print_board(self):
         for row in self.board:
             for num in row:
                 print(num, end=' ')
@@ -69,11 +68,10 @@ class SudokuGenerator:
 	
 	Return: boolean
     '''
-    def valid_in_row(self, row, num) -> bool:
-        for value in self.board[row]:
-            if value == num:
+    def valid_in_row(self, row, num):
+        for i in self.board[row]:
+            if i == num:
                 return False
-        
         return True
 
     '''
@@ -86,9 +84,9 @@ class SudokuGenerator:
 	
 	Return: boolean
     '''
-    def valid_in_col(self, col, num) -> bool: 
-        for row in self.board:
-            if row[col] == num:
+    def valid_in_col(self, col, num): 
+        for i in range(0,9):
+            if self.board[int(i)][int(col)] == num:
                 return False
 
         return True
@@ -105,7 +103,7 @@ class SudokuGenerator:
 
 	Return: boolean
     '''
-    def valid_in_box(self, row_start, col_start, num) -> bool:
+    def valid_in_box(self, row_start, col_start, num):
         if 0 <= row_start < 3:
             row_start = 0
         elif 3 <= row_start < 6:
@@ -118,8 +116,8 @@ class SudokuGenerator:
             col_start = 3
         elif 6 <= col_start < 9:
             col_start = 6
-        for i in range(row_start, row_start + 2):
-            for j in range(col_start, col_start + 2):
+        for i in range(row_start, row_start + 3):
+            for j in range(col_start, col_start + 3):
                 if self.board[i][j] == num:
                     return False
                 
@@ -135,15 +133,19 @@ class SudokuGenerator:
 
 	Return: boolean
     '''
-    def is_valid(self, row, col, num) -> bool:
-        row_valid = self.valid_in_row(row, num)
-        col_valid = self.valid_in_col(col, num)
-        box_valid = self.valid_in_box(row, col, num)
+    
+
+    def is_valid(self, row, col, num):
         
-        if row_valid and col_valid and box_valid:
-            return True
-        
-        return False
+
+        valid = False
+
+        if self.valid_in_row(row, num):
+            if self.valid_in_col(col, num):
+                if self.valid_in_box(row, col, num):
+                    valid = True
+
+        return valid
 
     '''
     Fills the specified 3x3 box with values
@@ -163,7 +165,7 @@ class SudokuGenerator:
                 nums_unused = [num for num in sudoku_range if num not in nums_used]
                 self.board[i][j] = random.choice(nums_unused)
                 nums_used.append(self.board[i][j])
-        return None
+        
     
     '''
     Fills the three boxes along the main diagonal of the board
@@ -176,7 +178,7 @@ class SudokuGenerator:
         self.fill_box(0, 0)
         self.fill_box(3, 3)
         self.fill_box(6, 6)
-        return None
+        
 
     '''
     DO NOT CHANGE
@@ -250,7 +252,7 @@ class SudokuGenerator:
             self.board[rand_choice[0]][rand_choice[1]] = 0
             pos_list.remove(rand_choice)
             tally += 1
-        return None
+        
 
 '''
 DO NOT CHANGE
