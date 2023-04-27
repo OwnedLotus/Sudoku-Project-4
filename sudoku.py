@@ -4,7 +4,7 @@ import math
 
 # changed for even divisibility of screen with cells
 SCREEN_WIDTH = 900
-SCREEN_HEIGHT = 900
+SCREEN_HEIGHT = 999
 
 # CONSTANTS defining colors
 RED = pygame.Color(255, 0, 0)
@@ -21,14 +21,19 @@ def end_screen(array, screen):
         screen.blit(text, (230, 250))
         font1 = pygame.font.SysFont("Arial", 50, True, False)
         text1 = font1.render("Click to play again", True, BLACK)
-        screen.blit(text1, (230, 500))
+        button_rect = text1.get_rect(center=(screen.get_width()/2, 500))
+        screen.blit(text1, button_rect)
         pygame.display.update()
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                game_over()
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                main()
-        pygame.display.update()
+
+        # Wait for the user to click the "Click to play again" button
+        while True:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    game_over()
+                elif event.type == pygame.MOUSEBUTTONDOWN and button_rect.collidepoint(event.pos):
+                    main()  # Call the main function to start a new game
+                    return  # Exit the current game loop
+
     else:
         screen.fill(BLACK)
         font = pygame.font.SysFont("Arial", 100, True, False)
@@ -36,14 +41,19 @@ def end_screen(array, screen):
         screen.blit(text, (230, 250))
         font1 = pygame.font.SysFont("Arial", 50, True, False)
         text1 = font1.render("Click to play again", True, WHITE)
-        screen.blit(text1, (230, 500))
+        button_rect = text1.get_rect(center=(screen.get_width()/2, 500))
+        screen.blit(text1, button_rect)
         pygame.display.update()
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                game_over()
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                main()
-        pygame.display.update()
+
+        # Wait for the user to click the "Click to play again" button
+        while True:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    game_over()
+                elif event.type == pygame.MOUSEBUTTONDOWN and button_rect.collidepoint(event.pos):
+                    main()  # Call the main function to start a new game
+                    return  # Exit the current game loop
+
 
 def cell_position(pos_tuple):
     i = int(math.floor((pos_tuple[0] - 45) / 90))
@@ -54,14 +64,20 @@ def insert_num(screen, pos, array):
     i, j = pos[0], pos[1]
     font = pygame.font.SysFont('Arial', 60)
 
-    #center = (int(math.floor((i + 45) / 90)), int(math.floor((j + 45) / 90)))
-
-    #highlight cell
-    #red_box = pygame.Rect(center[0] - 45, center[1] - 45, 90, 90 )
-    #pygame.draw.rect(screen, RED, red_box)
-    #pygame.display.update()
-
-    #Loop that looks for number click
+    # Get the center of the cell
+    center_x = (pos[0] * 90) + 45 + 45
+    center_y = (pos[1] * 90) + 45 + 45
+    
+    # Check if center coordinates are within the board range
+    if not (45 <= center_y <= 825 and 0 <= center_x <= 900):
+        return
+    
+    # Create the rectangle with a red outline
+    red_box = pygame.Rect(center_x - 45, center_y - 45, 90, 90)
+    pygame.draw.rect(screen, RED, red_box, 3)
+    pygame.display.update()
+    
+    # Loop that looks for number click
     while True:
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
@@ -73,14 +89,24 @@ def insert_num(screen, pos, array):
                 if 1 <= (event.key - 48) < 10:
                     pygame.draw.rect(screen, WHITE, ((pos[0] * 90) + 55, (pos[1] * 90) + 55, 40, 40))
                     value = font.render(str(event.key - 48), True, (75, 0, 130))
-                    screen.blit(value, ((pos[0]*90) + 45 + 30, (pos[1]*90) + 45 + 15))
+                    screen.blit(value, ((pos[0] * 90) + 45 + 30, (pos[1] * 90) + 45 + 15))
                     pygame.display.update()
+                    # Remove the red outline
+                    pygame.draw.rect(screen, BLACK, red_box, 3)
+                    pygame.display.update()
+                    array[i][j] = event.key - 48
                     return
-                if event.key == pygame.K_RETURN:
-                    end_screen(array, screen)
-                
+                # Remove the red outline
+                pygame.draw.rect(screen, BLACK, red_box, 3)
+                pygame.display.update()
+                return
+        # Check if 30 boxes are filled
+        if sum(1 for row in array for val in row if val != 0) >= 81:
+            end_screen(array, screen)
+            return
 
 
+        
 
 # Starts the game, return the screen, is type Surface
 def start_game() -> pygame.Surface:
@@ -102,7 +128,7 @@ def main_menu(screen) -> int:
     ORANGE = (255, 165, 0)
 
     # Set up the window
-    WINDOW_SIZE = (900, 900)
+    WINDOW_SIZE = (900, 999)
     screen = pygame.display.set_mode(WINDOW_SIZE)
     pygame.display.set_caption("Sudoku")
     screen.fill(WHITE)
@@ -127,19 +153,19 @@ def main_menu(screen) -> int:
     screen_width = screen.get_width()
     button_padding = (screen_width - (3 * button_width)) / 4
 
-    button_easy = pygame.Rect(button_padding, 750, button_width, button_height)
+    button_easy = pygame.Rect(button_padding, 875, button_width, button_height)
     pygame.draw.rect(screen, ORANGE, button_easy)
     text_easy = font.render("Easy", True, WHITE)
     text_rect_easy = text_easy.get_rect(center=button_easy.center)
     screen.blit(text_easy, text_rect_easy)
 
-    button_medium = pygame.Rect(button_padding * 2 + button_width, 750, button_width, button_height)
+    button_medium = pygame.Rect(button_padding * 2 + button_width, 875, button_width, button_height)
     pygame.draw.rect(screen, ORANGE, button_medium)
     text_medium = font.render("Medium", True, WHITE)
     text_rect_medium = text_medium.get_rect(center=button_medium.center)
     screen.blit(text_medium, text_rect_medium)
 
-    button_hard = pygame.Rect(button_padding * 3 + 2 * button_width, 750, button_width, button_height)
+    button_hard = pygame.Rect(button_padding * 3 + 2 * button_width, 875, button_width, button_height)
     pygame.draw.rect(screen, ORANGE, button_hard)
     text_hard = font.render("Hard", True, WHITE)
     text_rect_hard = text_hard.get_rect(center=button_hard.center)
@@ -176,6 +202,28 @@ def game_in_progress(screen):
     board = sg.Board(SCREEN_WIDTH, SCREEN_HEIGHT, screen, removed)
     screen.fill(WHITE)
     board.draw()
+    # Draw the "quit" button
+    FONT = pygame.font.Font(None, 32)
+    BUTTON_WIDTH = 100
+    BUTTON_HEIGHT = 50
+    BUTTON_SPACING = 20
+    quit_button = pygame.draw.rect(screen, BLACK, (BUTTON_SPACING, screen.get_height() - BUTTON_HEIGHT - BUTTON_SPACING, BUTTON_WIDTH, BUTTON_HEIGHT))
+    quit_text = FONT.render("Quit", True, WHITE)
+    screen.blit(quit_text, (quit_button.x + (BUTTON_WIDTH - quit_text.get_width()) // 2, quit_button.y + (BUTTON_HEIGHT - quit_text.get_height()) // 2))
+
+
+# Draw the "restart" button
+    restart_button = pygame.draw.rect(screen, BLACK, (BUTTON_SPACING + BUTTON_WIDTH + BUTTON_SPACING, screen.get_height() - BUTTON_HEIGHT - BUTTON_SPACING, BUTTON_WIDTH, BUTTON_HEIGHT))
+    restart_text = FONT.render("Restart", True, WHITE)
+    screen.blit(restart_text, (restart_button.x + (BUTTON_WIDTH - restart_text.get_width()) // 2, restart_button.y + (BUTTON_HEIGHT - restart_text.get_height()) // 2))
+
+# Draw the "reset" button
+    reset_button = pygame.draw.rect(screen, BLACK, (BUTTON_SPACING + BUTTON_WIDTH + BUTTON_SPACING + BUTTON_WIDTH + BUTTON_SPACING, screen.get_height() - BUTTON_HEIGHT - BUTTON_SPACING, BUTTON_WIDTH, BUTTON_HEIGHT))
+    reset_text = FONT.render("Reset", True, WHITE)
+    screen.blit(reset_text, (reset_button.x + (BUTTON_WIDTH - reset_text.get_width()) // 2, reset_button.y + (BUTTON_HEIGHT - reset_text.get_height()) // 2))
+
+# Update the display
+    pygame.display.update()
     for i in range(len(arrayboard)):
         for j in range(len(arrayboard[0])):
             sg.draw(arrayboard, screen, i, j)
@@ -187,6 +235,17 @@ def game_in_progress(screen):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 game_over()
+            if pygame.mouse.get_pressed()[0]:
+                mouse_pos = pygame.mouse.get_pos()
+                if restart_button.collidepoint(mouse_pos):
+                    screen = start_game()
+                    game_in_progress(screen)
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if event.button == 1: # check if left mouse button is clicked
+                    mouse_pos = pygame.mouse.get_pos()
+                    if quit_button.collidepoint(mouse_pos):
+                        pygame.quit()
+                        sys.exit()
             elif event.type == pygame.MOUSEBUTTONUP and event.button == 1:
                 mouse_pos = event.pos
                 cell = cell_position(mouse_pos)
