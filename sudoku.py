@@ -58,9 +58,9 @@ def insert_num(screen, pos, array):
                     screen.blit(value, ((pos[0]*90) + 45 + 30, (pos[1]*90) + 45 + 15))
                     pygame.display.update()
                     return
-                return
-        if sg.is_full(array):
-            end_screen(array, screen)
+                if event.key == pygame.K_RETURN:
+                    end_screen(array, screen)
+                
 
 
 
