@@ -19,12 +19,30 @@ def end_screen(array, screen):
         font = pygame.font.SysFont("Arial", 100, True, False)
         text = font.render("You won!", True, BLACK)
         screen.blit(text, (230, 250))
+        font1 = pygame.font.SysFont("Arial", 50, True, False)
+        text1 = font1.render("Click to play again", True, BLACK)
+        screen.blit(text1, (230, 500))
+        pygame.display.update()
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                game_over()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                main()
         pygame.display.update()
     else:
         screen.fill(BLACK)
         font = pygame.font.SysFont("Arial", 100, True, False)
         text = font.render("You lost!", True, WHITE)
         screen.blit(text, (230, 250))
+        font1 = pygame.font.SysFont("Arial", 50, True, False)
+        text1 = font1.render("Click to play again", True, WHITE)
+        screen.blit(text1, (230, 500))
+        pygame.display.update()
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                game_over()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                main()
         pygame.display.update()
 
 def cell_position(pos_tuple):
