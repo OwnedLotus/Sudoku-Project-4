@@ -100,7 +100,7 @@ def insert_num(screen, pos, array):
                 pygame.draw.rect(screen, BLACK, red_box, 3)
                 pygame.display.update()
                 return
-        # Check if 30 boxes are filled
+        # Check if all 81 boxes are filled
         if sum(1 for row in array for val in row if val != 0) >= 81:
             end_screen(array, screen)
             return
@@ -211,11 +211,16 @@ def game_in_progress(screen):
     quit_text = FONT.render("Quit", True, WHITE)
     screen.blit(quit_text, (quit_button.x + (BUTTON_WIDTH - quit_text.get_width()) // 2, quit_button.y + (BUTTON_HEIGHT - quit_text.get_height()) // 2))
 
-
-# Draw the "restart" button
+    # Draw the "restart" button
     restart_button = pygame.draw.rect(screen, BLACK, (BUTTON_SPACING + BUTTON_WIDTH + BUTTON_SPACING, screen.get_height() - BUTTON_HEIGHT - BUTTON_SPACING, BUTTON_WIDTH, BUTTON_HEIGHT))
     restart_text = FONT.render("Restart", True, WHITE)
     screen.blit(restart_text, (restart_button.x + (BUTTON_WIDTH - restart_text.get_width()) // 2, restart_button.y + (BUTTON_HEIGHT - restart_text.get_height()) // 2))
+
+    # Draw the "reset" button
+    reset_button = pygame.draw.rect(screen, BLACK, (2 * BUTTON_SPACING + 2 * BUTTON_WIDTH + BUTTON_SPACING, screen.get_height() - BUTTON_HEIGHT - BUTTON_SPACING, BUTTON_WIDTH, BUTTON_HEIGHT))
+    reset_text = FONT.render("Reset", True, WHITE)
+    screen.blit(reset_text, (reset_button.x + (BUTTON_WIDTH - reset_text.get_width()) // 2, reset_button.y + (BUTTON_HEIGHT - reset_text.get_height()) // 2))
+
 
 
 # Update the display
@@ -236,6 +241,8 @@ def game_in_progress(screen):
                 if restart_button.collidepoint(mouse_pos):
                     screen = start_game()
                     game_in_progress(screen)
+                if reset_button.collidepoint(mouse_pos):
+                    pass
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if event.button == 1: # check if left mouse button is clicked
                     mouse_pos = pygame.mouse.get_pos()
